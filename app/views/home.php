@@ -1,3 +1,9 @@
+<?php
+session_start();
+$user = $_SESSION['user']['nom'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +22,7 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/custom-style.css" type="text/css">
 </head>
 
 <body>
@@ -32,10 +39,10 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Accueil</a></li>
-                <li><a href="./shop-grid.html">Demande d'échange</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contact</a></li>
+                <li class="active"><a href="/home">Accueil</a></li>
+                <li><a href="/demandes-recues">Demandes reçues</a></li>
+                <li><a href="/demandes-envoyees">Demandes envoyées</a></li>
+                <li><a href="/objet/add">Ajouter un objet</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -54,10 +61,10 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Accueil</a></li>
-                            <li><a href="./shop-grid.html">Demande d'échange</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li class="active"><a href="/home">Accueil</a></li>
+                            <li><a href="/demandes-recues">Demandes reçues</a></li>
+                            <li><a href="/demandes-envoyees">Demandes envoyées</a></li>
+                            <li><a href="/objet/add">Ajouter un objet</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -105,99 +112,35 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>Objets d'autres utilisateurs</h2>
+                        <h2>Liste des objets</h2>
                     </div>
                 </div>
             </div>
             <div class="row featured__filter">
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic">
-                            <img src="img/featured/feature-1.jpg" alt="">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>John Doe</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic">
-                            <img src="img/featured/feature-2.jpg" alt="">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>John Doe</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic">
-                            <img src="img/featured/feature-3.jpg" alt="">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>John Doe</h5>
+                <?php foreach ($objets as $objet): ?>
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                        <div class="featured__item">
+                            <div class="featured__item__pic">
+                                <?php if (!empty($objet['lien_photo'])): ?>
+                                    <img src="/assets/img/<?= htmlspecialchars($objet['lien_photo']) ?>"
+                                        alt="<?= htmlspecialchars($objet['description']) ?>">
+                                <?php endif; ?>
+                            </div>
+                            <div class="featured__item__text">
+                                <h3><?= htmlspecialchars($objet['description']) ?></h3>
+                                <p>Prix : <?= htmlspecialchars($objet['prix']) ?> Ar</p>
+                                <p>Propriétaire : <?= htmlspecialchars($objet['nomUser']) ?></p>
+                                <p>Catégorie : <?= htmlspecialchars($objet['nomCategorie']) ?></p>
+                            </div>
+                            <div class="featured__item__actions">
+                                <a href="/objet/<?= $objet['id'] ?>">Voir détail</a>
+                                <a href="/objet/edit/<?= $objet['id'] ?>">Modifier</a>
+                                <a href="/objet/delete/<?= $objet['id'] ?>" onclick="return confirm('Supprimer cet objet ?');">Supprimer</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-                    <div class="featured__item">
-                        <div class="featured__item__pic">
-                            <img src="img/featured/feature-4.jpg" alt="">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>John Doe</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic">
-                            <img src="img/featured/feature-5.jpg" alt="">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>John Doe</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic">
-                            <img src="img/featured/feature-6.jpg" alt="">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>John Doe</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic">
-                            <img src="img/featured/feature-7.jpg" alt="">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>John Doe</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic">
-                            <img src="img/featured/feature-8.jpg" alt="">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>John Doe</h5>
-                        </div>
-                    </div>
-                </div>
+
+                <?php endforeach; ?>
             </div>
         </div>
     </section>

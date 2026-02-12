@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Takalo | Détails objets</title>
+    <title>Takalo | Demandes reçues</title>
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -34,10 +34,10 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Accueil</a></li>
-                <li><a href="./shop-grid.html">Demande d'échange</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="/home">Accueil</a></li>
+                <li class="active"><a href="/demandes-recues">Demandes reçues</a></li>
+                <li><a href="/demandes-envoyees">Demandes envoyées</a></li>
+                <li><a href="/objet/add">Ajouter un objet</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -56,10 +56,10 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="./index.html">Accueil</a></li>
-                            <li class="active"><a href="./objets_details.html">Demande d'échange</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="/home">Accueil</a></li>
+                            <li class="active"><a href="/demandes-recues">Demandes reçues</a></li>
+                            <li><a href="/demandes-envoyees">Demandes envoyées</a></li>
+                            <li><a href="/objet/add">Ajouter un objet</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -101,57 +101,74 @@
     </section>
     <!-- Hero Section End -->
 
-    <!-- Product Details Section Begin -->
-    <section class="product-details spad">
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="product__details__pic">
-                        <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large"
-                                src="img/product/details/product-details-1.jpg" alt="">
-                        </div>
-                        <div class="product__details__pic__slider owl-carousel">
-                            <img src="img/product/details/product-details-2.jpg" alt="">
-                            <img src="img/product/details/product-details-3.jpg" alt="">
-                            <img src="img/product/details/product-details-5.jpg" alt="">
-                            <img src="img/product/details/product-details-4.jpg" alt="">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Demandes</h2>
+                        <div class="breadcrumb__option">
+                            <a href="./index.html">Accueil</a>
+                            <span>Demandes d'échange</span>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="product__details__text">
-                        <h3>Vegetable’s Package</h3>
-
-                        <div class="blog__details__author">
-                            <div class="blog__details__author__pic">
-                                <img src="img/blog/details/details-author.jpg" alt="">
-                            </div>
-                            <div class="blog__details__author__text">
-                                <h6>Michael Scofield</h6>
-                                <span>Admin</span>
-                            </div>
-                        </div>
-
-                        <!-- Price -->
-                        <div class="product__details__price">$29.99</div>
-
-                        <!-- Short description -->
-                        <p>
-                            A fresh selection of seasonal vegetables sourced directly from local farms.
-                            Perfect for healthy meals and weekly cooking.
-                        </p>
-
-                        <!-- Buttons -->
-                        <a href="#" class="primary-btn">Demander un échanger</a>
-                    </div>
-
                 </div>
             </div>
         </div>
     </section>
-    <!-- Product Details Section End -->
+    <!-- Breadcrumb Section End -->
+
+    <!-- Demandes Sections Begin -->
+    <?php if (!empty($demandes)): ?>
+        <section class="shoping-cart spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shoping__cart__table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="shoping__product">Demande</th>
+                                        <th>Contre</th>
+                                        <th>Envoyeur</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($demandes as $demande): ?>
+                                        <tr>
+                                            <td class="shoping__cart__item">
+                                                <!-- <img src="img/cart/cart-1.jpg" alt=""> -->
+                                                <h5><?= htmlspecialchars($demande['objetDemande']) ?></h5>
+                                            </td>
+                                            <td class="shoping__cart__item">
+                                                <!-- <img src="img/cart/cart-2.jpg" alt=""> -->
+                                                <h5><?= htmlspecialchars($demande['objetPropose']) ?></h5>
+                                            </td>
+                                            <td class="shoping__cart__user">
+                                                <!-- <img src="img/users/user-1.jpg" alt="" class="user-avatar"> -->
+                                                <span><?= htmlspecialchars($demande['nomEnvoyeur']) ?></span>
+                                            </td>
+                                            <td class="shoping__cart__actions">
+                                                <a href="/demande/<?= $demande['id'] ?>/accepter" class="action accept" title="Accepter"><i class="fa fa-check"></i></a>
+                                                <a href="/demande/<?= $demande['id'] ?>/refuser" class="action reject" title="Refuser"><i class="fa fa-times"></i></a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <?php else: ?>
+        <p>Aucune demande reçue.</p>
+    <?php endif; ?>
+    <!-- Demandes Sections End -->
+
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
